@@ -1,0 +1,70 @@
+<Project Sdk="Microsoft.NET.Sdk">
+<PropertyGroup>
+    <!-- Multi-target so the same package can be used by legacy .NET Framework 4.8 and .NET (Core) apps -->
+    <TargetFrameworks>net48;netstandard2.0</TargetFrameworks>
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>false</ImplicitUsings>
+
+    <AssemblyName>Danfe</AssemblyName>
+    <RootNamespace>Danfe</RootNamespace>
+
+    <!-- Matches your current output type -->
+    <OutputType>Library</OutputType>
+
+    <!-- Preserve behavior of copying content to output -->
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+  
+
+<PackageId>Direction.NFSe.Danfe</PackageId>
+<Authors>Direction Systems Ltda.; Jairo Marques</Authors>
+<Company>Direction Systems Ltda.</Company>
+<Description>Biblioteca .NET para gerar DANFSe (PDF) a partir do XML da Nota Fiscal de Serviço Nacional (NFSe/DPS), sem depender de endpoint externo.</Description>
+<PackageTags>nfse;danfse;danfe;dps;pdf;html;renderer;brasil</PackageTags>
+<RepositoryUrl>https://github.com/JairoMarques/direction-nfse-danfe</RepositoryUrl>
+<RepositoryType>git</RepositoryType>
+<PackageLicenseExpression>MIT</PackageLicenseExpression>
+<PackageReadmeFile>README.md</PackageReadmeFile>
+<IncludeSymbols>true</IncludeSymbols>
+<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+<Deterministic>true</Deterministic>
+<ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
+</PropertyGroup>
+
+  <!-- NuGet packages (replaces packages.config + HintPath references) -->
+  <ItemGroup>
+    <PackageReference Include="NReco.PdfGenerator" Version="1.2.1" />
+    <PackageReference Include="QRCoder" Version="1.7.0" />
+  </ItemGroup>
+
+  <!-- net48-only framework references that do NOT exist on .NET Standard -->
+  <ItemGroup Condition="'$(TargetFramework)' == 'net48'">
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Drawing" />
+  </ItemGroup>
+
+  <!-- If you use System.Drawing APIs when targeting netstandard2.0, you typically need this package.
+       If you don't use System.Drawing in netstandard builds, remove this line. -->
+  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">  </ItemGroup>
+
+  <!-- Data files and templates -->
+  <ItemGroup>
+    <None Include="Assets\\estados.csv" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="Assets\\municipios.csv" CopyToOutputDirectory="PreserveNewest" />
+
+    <Content Include="Assets\\Logos\\logoBH.png" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="Assets\\Logos\\logoRecife.png" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="Assets\\Templates\\Danfe.html" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
+
+<ItemGroup>
+    <None Include="..\..\README.md" Pack="true" PackagePath="\" />
+    <None Include="..\..\CONTRIBUTING.md" Pack="true" PackagePath="\" />
+    <None Include="..\..\CODE_OF_CONDUCT.md" Pack="true" PackagePath="\" />
+    <None Include="..\..\LICENSE" Pack="true" PackagePath="\" />
+</ItemGroup>
+</Project>

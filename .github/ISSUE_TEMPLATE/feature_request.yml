@@ -1,0 +1,28 @@
+name: Feature request
+description: Sugira melhorias (campos, layout, validações, desempenho, compatibilidade).
+title: "[Feature]: "
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposta
+      description: O que você quer ver implementado?
+    validations:
+      required: true
+
+  - type: textarea
+    id: rationale
+    attributes:
+      label: Motivação
+      description: Qual problema isso resolve? Há exigência legal/nota técnica?
+    validations:
+      required: true
+
+  - type: textarea
+    id: scope
+    attributes:
+      label: Escopo e impacto
+      description: Há breaking change? Afeta template? Afeta parsing?
+    validations:
+      required: false

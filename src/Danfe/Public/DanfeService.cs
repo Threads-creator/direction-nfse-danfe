@@ -1,0 +1,56 @@
+using System;
+using System.IO;
+using System.Xml.Serialization;
+
+namespace Direction.NFSe.Danfe;
+
+public sealed class DanfeService
+{
+    private readonly DanfeHtmlRenderer _renderer;
+    private readonly DanfePdfGenerator _pdf;
+
+    public DanfeService(DanfeOptions? options = null, NReco.PdfGenerator.HtmlToPdfConverter? converter = null)
+    {
+        options ??= new DanfeOptions();
+        _renderer = new DanfeHtmlRenderer(options);
+        _pdf = new DanfePdfGenerator(converter);
+    }
+
+    public DanfeResult Generate(NFSeSchema nfse, DanfeEnvironment environment)
+    {
+        var (html, warnings) = _renderer.Render(nfse, environment);
+        var pdfBytes = _pdf.Generate(html);
+
+        return new DanfeResult
+        {
+            Environment = environment,
+            Html = html,
+            PdfBytes = pdfBytes,
+            Warnings = warnings
+        };
+    }
+
+    public DanfeResult Generate(string xml, DanfeEnvironment environment)
+    {
+        using var sr = new StringReader(xml);
+        var nfse = Deserialize(sr);
+        return Generate(nfse, environment);
+    }
+
+    public DanfeResult Generate(Stream xmlStream, DanfeEnvironment environment)
+    {
+        using var sr = new StreamReader(xmlStream);
+        var nfse = Deserialize(sr);
+        return Generate(nfse, environment);
+    }
+
+    private static NFSeSchema Deserialize(TextReader reader)
+    {
+        var serializer = new XmlSerializer(typeof(NFSeSchema));
+        var obj = serializer.Deserialize(reader);
+        if (obj is not NFSeSchema nfse)
+            throw new InvalidOperationException("Falha ao desserializar NFSeSchema.");
+
+        return nfse;
+    }
+}

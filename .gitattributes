@@ -1,0 +1,14 @@
+# Normaliza line endings
+* text=auto eol=lf
+
+# Arquivos Windows específicos
+*.ps1 text eol=crlf
+*.cmd text eol=crlf
+*.bat text eol=crlf
+
+# Binários
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.pdf binary
