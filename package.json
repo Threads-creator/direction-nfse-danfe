@@ -5,7 +5,7 @@
     "prettier": "^3.3.3"
   },
   "scripts": {
-    "format": "prettier --write \"src/Danfe/Templates/**/*.html\"",
-    "format:check": "prettier --check \"src/Danfe/Templates/**/*.html\""
+    "format": "prettier --write \"src/Danfe/Assets/Templates/**/*.html\"",
+    "format:check": "prettier --check \"src/Danfe/Assets/Templates/**/*.html\""
   }
 }
