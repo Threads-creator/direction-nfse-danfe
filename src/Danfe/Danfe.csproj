@@ -56,6 +56,19 @@
 
 
 <ItemGroup>
+    <!-- Para projetos SDK/PackageReference -->
+    <None Include="buildTransitive\Direction.NFSe.Danfe.targets"
+            Pack="true"
+            PackagePath="buildTransitive\Direction.NFSe.Danfe.targets" />
+
+    <!-- Para projetos .NET Framework clássicos (non-SDK) -->
+    <None Include="buildTransitive\Direction.NFSe.Danfe.targets"
+            Pack="true"
+            PackagePath="build\Direction.NFSe.Danfe.targets" />
+</ItemGroup>
+
+
+    <ItemGroup>
   <None Include="Assets\**\*"
         Pack="true"
         PackagePath="contentFiles\any\any\Direction.NFSe.Danfe\Assets\">
@@ -70,11 +83,5 @@
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         <Visible>false</Visible>
     </Content>
-</ItemGroup>
-
-<ItemGroup>
-    <None Include="buildTransitive\Direction.NFSe.Danfe.targets"
-            Pack="true"
-            PackagePath="buildTransitive\Direction.NFSe.Danfe.targets" />
 </ItemGroup>
 </Project>

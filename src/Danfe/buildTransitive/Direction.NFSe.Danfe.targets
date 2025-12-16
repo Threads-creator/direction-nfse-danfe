@@ -1,10 +1,14 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+    <!-- Se os Assets foram adicionados ao projeto consumidor (como Content/None), força a cópia -->
     <ItemGroup>
-        <!-- Fallback: copia assets do pacote para o output caso o contentFiles não esteja copiando -->
-        <None Include="$(MSBuildThisFileDirectory)..\contentFiles\any\any\Direction.NFSe.Danfe\Assets\**\*"
-              Condition=" '$(DisableDanfeAssetsTargetsCopy)' != 'true' ">
+        <Content Update="Assets\**\*">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-            <Visible>false</Visible>
+        </Content>
+
+        <None Update="Assets\**\*">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
     </ItemGroup>
+
 </Project>
