@@ -56,10 +56,13 @@
 
 
 <ItemGroup>
-    <None Include="Assets\**\*"
-            Pack="true"
-            PackagePath="contentFiles\any\any\Direction.NFSe.Danfe\Assets\" />
+  <None Include="Assets\**\*"
+        Pack="true"
+        PackagePath="contentFiles\any\any\Direction.NFSe.Danfe\Assets\">
+    <PackageCopyToOutput>true</PackageCopyToOutput>
+  </None>
 </ItemGroup>
+
 
 <ItemGroup>
     <!-- Para dev local (ProjectReference): copia Assets para bin -->

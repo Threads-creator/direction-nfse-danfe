@@ -1,9 +1,10 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <ItemGroup>
-    <!-- Localiza os assets dentro do pacote NuGet e manda pro output do consumidor -->
-    <Content Include="$(MSBuildThisFileDirectory)..\contentFiles\any\any\Direction.NFSe.Danfe\Assets\**\*">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <Visible>false</Visible>
-    </Content>
-  </ItemGroup>
+    <ItemGroup>
+        <!-- Fallback: copia assets do pacote para o output caso o contentFiles não esteja copiando -->
+        <None Include="$(MSBuildThisFileDirectory)..\contentFiles\any\any\Direction.NFSe.Danfe\Assets\**\*"
+              Condition=" '$(DisableDanfeAssetsTargetsCopy)' != 'true' ">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+            <Visible>false</Visible>
+        </None>
+    </ItemGroup>
 </Project>
