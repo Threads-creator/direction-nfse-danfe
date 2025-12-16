@@ -6,29 +6,25 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>false</ImplicitUsings>
 
-    <AssemblyName>Danfe</AssemblyName>
-    <RootNamespace>Danfe</RootNamespace>
+    <AssemblyName>Direction.NFSe.Danfe</AssemblyName>
+    <RootNamespace>Direction.NFSe.Danfe</RootNamespace>
 
     <!-- Matches your current output type -->
-    <OutputType>Library</OutputType>
+    <OutputType>Library</OutputType>  
 
-    <!-- Preserve behavior of copying content to output -->
-    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
-  
-
-<PackageId>Direction.NFSe.Danfe</PackageId>
-<Authors>Direction Systems Ltda.; Jairo Marques</Authors>
-<Company>Direction Systems Ltda.</Company>
-<Description>Biblioteca .NET para gerar DANFSe (PDF) a partir do XML da Nota Fiscal de Serviço Nacional (NFSe/DPS), sem depender de endpoint externo.</Description>
-<PackageTags>nfse;danfse;danfe;dps;pdf;html;renderer;brasil</PackageTags>
-<RepositoryUrl>https://github.com/JairoMarques/direction-nfse-danfe</RepositoryUrl>
-<RepositoryType>git</RepositoryType>
-<PackageLicenseExpression>MIT</PackageLicenseExpression>
-<PackageReadmeFile>README.md</PackageReadmeFile>
-<IncludeSymbols>true</IncludeSymbols>
-<SymbolPackageFormat>snupkg</SymbolPackageFormat>
-<Deterministic>true</Deterministic>
-<ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
+    <PackageId>Direction.NFSe.Danfe</PackageId>
+    <Authors>Direction Systems Ltda.; Jairo Marques</Authors>
+    <Company>Direction Systems Ltda.</Company>
+    <Description>Biblioteca .NET para gerar DANFSe (PDF) a partir do XML da Nota Fiscal de Serviço Nacional (NFSe/DPS), sem depender de endpoint externo.</Description>
+    <RepositoryUrl>https://github.com/JairoMarques/direction-nfse-danfe</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageTags>nfse danfe pdf nota fiscal nacional brasil</PackageTags>    
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <Deterministic>true</Deterministic>
+    <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
 </PropertyGroup>
 
   <!-- NuGet packages (replaces packages.config + HintPath references) -->
@@ -49,29 +45,26 @@
   <!-- If you use System.Drawing APIs when targeting netstandard2.0, you typically need this package.
        If you don't use System.Drawing in netstandard builds, remove this line. -->
   <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">  </ItemGroup>
-
-  <!-- Data files and templates -->
-  <ItemGroup>
-    <None Include="Assets\\estados.csv" CopyToOutputDirectory="PreserveNewest" />
-    <None Include="Assets\\municipios.csv" CopyToOutputDirectory="PreserveNewest" />
-
-    <Content Include="Assets\\Logos\\logoBH.png" CopyToOutputDirectory="PreserveNewest" />
-    <Content Include="Assets\\Logos\\logoRecife.png" CopyToOutputDirectory="PreserveNewest" />
-    <Content Include="Assets\\Templates\\Danfe.html" CopyToOutputDirectory="PreserveNewest" />
-  </ItemGroup>
-
+    
 
 <ItemGroup>
-    <None Include="..\..\README.md" Pack="true" PackagePath="\" />
-    <None Include="..\..\CONTRIBUTING.md" Pack="true" PackagePath="\" />
-    <None Include="..\..\CODE_OF_CONDUCT.md" Pack="true" PackagePath="\" />
-    <None Include="..\..\LICENSE" Pack="true" PackagePath="\" />
+    <None Include="..\..\README.md" Pack="true" PackagePath="" />
+    <None Include="..\..\CONTRIBUTING.md" Pack="true" PackagePath="" />
+    <None Include="..\..\CODE_OF_CONDUCT.md" Pack="true" PackagePath="" />
+    <None Include="..\..\LICENSE" Pack="true" PackagePath="" />
 </ItemGroup>
 
 
 <ItemGroup>
-  <None Update="Assets\Logos\nfse.png">
-    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-  </None>
+    <None Include="Assets\**\*"
+            Pack="true"
+            PackagePath="contentFiles\any\any\Direction.NFSe.Danfe\Assets\" />
+</ItemGroup>
+
+
+<ItemGroup>
+    <None Include="buildTransitive\Direction.NFSe.Danfe.targets"
+            Pack="true"
+            PackagePath="buildTransitive\Direction.NFSe.Danfe.targets" />
 </ItemGroup>
 </Project>
