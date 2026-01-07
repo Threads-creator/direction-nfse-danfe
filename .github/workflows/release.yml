@@ -39,13 +39,15 @@ jobs:
 
       - name: Push to NuGet (OIDC)
         shell: pwsh
-        env:
-          NUGET_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          # Get OIDC token from GitHub
-          $token = (Invoke-RestMethod -Uri "$env:ACTIONS_ID_TOKEN_REQUEST_URL&audience=api://AzureADTokenExchange" -Headers @{ Authorization = "Bearer $env:ACTIONS_ID_TOKEN_REQUEST_TOKEN" }).value
+          # Get OIDC token from GitHub with NuGet audience
+          $tokenUrl = "$env:ACTIONS_ID_TOKEN_REQUEST_URL&audience=https://api.nuget.org"
+          $headers = @{ Authorization = "Bearer $env:ACTIONS_ID_TOKEN_REQUEST_TOKEN" }
+          $token = (Invoke-RestMethod -Uri $tokenUrl -Headers $headers).value
           
-          # Push packages using OIDC
+          Write-Host "Token obtained successfully"
+          
+          # Push packages using OIDC token
           dotnet nuget push "$env:GITHUB_WORKSPACE\artifacts\*.nupkg" `
             --api-key $token `
             --source https://api.nuget.org/v3/index.json `
