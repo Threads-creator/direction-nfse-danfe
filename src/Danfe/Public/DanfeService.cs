@@ -16,9 +16,9 @@ public sealed class DanfeService
         _pdf = new DanfePdfGenerator(converter);
     }
 
-    public DanfeResult Generate(NFSeSchema nfse, DanfeEnvironment environment)
+    public DanfeResult Generate(NFSeSchema nfse, DanfeEnvironment environment, bool isCancelled = false)
     {
-        var (html, warnings) = _renderer.Render(nfse, environment);
+        var (html, warnings) = _renderer.Render(nfse, environment, isCancelled);
         var pdfBytes = _pdf.Generate(html);
 
         return new DanfeResult
@@ -30,18 +30,18 @@ public sealed class DanfeService
         };
     }
 
-    public DanfeResult Generate(string xml, DanfeEnvironment environment)
+    public DanfeResult Generate(string xml, DanfeEnvironment environment, bool isCancelled = false)
     {
         using var sr = new StringReader(xml);
         var nfse = Deserialize(sr);
-        return Generate(nfse, environment);
+        return Generate(nfse, environment, isCancelled);
     }
 
-    public DanfeResult Generate(Stream xmlStream, DanfeEnvironment environment)
+    public DanfeResult Generate(Stream xmlStream, DanfeEnvironment environment, bool isCancelled = false)
     {
         using var sr = new StreamReader(xmlStream);
         var nfse = Deserialize(sr);
-        return Generate(nfse, environment);
+        return Generate(nfse, environment, isCancelled);
     }
 
     private static NFSeSchema Deserialize(TextReader reader)

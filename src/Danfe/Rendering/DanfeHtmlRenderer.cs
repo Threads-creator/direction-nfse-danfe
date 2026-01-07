@@ -23,7 +23,7 @@ public sealed class DanfeHtmlRenderer
         _templatePath = _options.TemplatePath ?? Path.Combine(basePath, "Assets", "Templates", "Danfe.html");
     }
 
-    public (string Html, IReadOnlyList<DanfeWarning> Warnings) Render(NFSeSchema nfse, DanfeEnvironment environment)
+    public (string Html, IReadOnlyList<DanfeWarning> Warnings) Render(NFSeSchema nfse, DanfeEnvironment environment, bool isCancelled = false)
     {
         if (nfse == null) throw new ArgumentNullException(nameof(nfse));
         if (nfse.infNFSe == null) throw new ArgumentException("NFSe.infNFSe não pode ser nulo", nameof(nfse));
@@ -117,9 +117,31 @@ public sealed class DanfeHtmlRenderer
         decimal? vIssqn = valores?.vISSQN;
         decimal? vLiq = valores?.vLiq;
 
+        // Verifica ses a NFSe está cancelada
+        string canceladaDiv = isCancelled
+            ? @"<div class=""nfse-cancelada"" style=""
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%) rotate(-30deg);
+                    font-size: 96px;
+                    font-weight: bold;
+                    color: rgba(200, 0, 0, 0.18);
+                    border: 8px solid rgba(200, 0, 0, 0.18);
+                    padding: 20px 40px;
+                    text-transform: uppercase;
+                    z-index: 2;
+                    pointer-events: none;
+                    white-space: nowrap;"">
+                    CANCELADA
+                </div>"
+            : string.Empty;
+
         // Monta mapa de placeholders (agora com warnings)
         var map = new Dictionary<string, string>
         {
+            // Cancelada
+            ["{{NFSE_CANCELADA_DIV}}"] = canceladaDiv,
             // Fonts
             ["{{FONT_FAMILY}}"] = _options.FontFamily ?? "Verdana, Helvetica, sans-serif;",
             ["{{FONT_SIZE}}"] = _options.FontSize ?? "12px;",
