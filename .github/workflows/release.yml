@@ -46,7 +46,11 @@ jobs:
           
 
       - name: Push to NuGet (OIDC)
-        run: dotnet nuget push ./bin/release/*.nupkg --source https://api.nuget.org/v3/index.json
+        run: dotnet nuget push "artifacts/*.nupkg" --source https://api.nuget.org/v3/index.json --skip-duplicate
+
+        
+      - name: Push symbols (OIDC)
+        run: dotnet nuget push "artifacts/*.snupkg" --source https://api.nuget.org/v3/index.json --skip-duplicate
 
 
       - name: GitHub Release
