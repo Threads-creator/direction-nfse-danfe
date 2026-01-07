@@ -37,28 +37,22 @@ jobs:
         shell: pwsh
         run: dotnet pack src/Danfe/Danfe.csproj -c Release -o "$env:GITHUB_WORKSPACE\artifacts" /p:PackageVersion=$env:PACKAGE_VERSION
 
-      - name: Push to NuGet (OIDC)
+      - name: NuGet login (OIDC)
+        uses: NuGet/login@v1
+        id: nuget-login
+        with:
+          user: ${{ secrets.NUGET_USERNAME }}
+
+      - name: Push to NuGet
         shell: pwsh
         run: |
-          # Get OIDC token from GitHub with NuGet audience
-          $tokenUrl = "$env:ACTIONS_ID_TOKEN_REQUEST_URL&audience=https://api.nuget.org"
-          $headers = @{ Authorization = "Bearer $env:ACTIONS_ID_TOKEN_REQUEST_TOKEN" }
-          $response = Invoke-RestMethod -Uri $tokenUrl -Headers $headers
-          $token = $response.value
-          
-          # Debug: Decode JWT token to see claims
-          $parts = $token.Split('.')
-          $payload = [System.Text.Encoding]::UTF8.GetString([Convert]::FromBase64String($parts[1] + "=="))
-          Write-Host "Token claims: $payload"
-          
-          # Push packages using OIDC token
           dotnet nuget push "$env:GITHUB_WORKSPACE\artifacts\*.nupkg" `
-            --api-key $token `
+            --api-key ${{ steps.nuget-login.outputs.NUGET_API_KEY }} `
             --source https://api.nuget.org/v3/index.json `
             --skip-duplicate
           
           dotnet nuget push "$env:GITHUB_WORKSPACE\artifacts\*.snupkg" `
-            --api-key $token `
+            --api-key ${{ steps.nuget-login.outputs.NUGET_API_KEY }} `
             --source https://api.nuget.org/v3/index.json `
             --skip-duplicate
 
