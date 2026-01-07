@@ -54,6 +54,36 @@ DanfeResult result = danfe.Generate(
 File.WriteAllBytes("danfse.pdf", result.PdfBytes);
 ```
 
+### Gerando a DANFSe **CANCELADA** a partir do XML
+
+- Como no **XML** não vem uma informação se a NFSe está cancelada, você é que tem que informar via parâmetro como no exemplo abaixo:
+
+
+```csharp
+using Direction.NFSe.Danfe;
+
+var xml = File.ReadAllText("nfse.xml");
+
+var danfe = new DanfeService();
+
+DanfeResult result = danfe.Generate(
+    xml,
+    DanfeEnvironment.Production,
+    true // Informa que é uma NFSe CANCELADA
+);
+
+File.WriteAllBytes("danfse.pdf", result.PdfBytes);
+```
+
+---
+
+## Para inserir logos do seu município
+- O repositório não tem a logo de todos os municípios. Você pode criar a do seu município obedecendo o padrão de **400x400** pixels e colocando na pasta **"Assets\Logos"**.
+- Você deve ainda modificar o arquivo **municipios.csv**, localizando seu município e complementando as informações de logo_path e logo_name, como no exemplo abaixo para **Recife**:
+```csv
+2611606,Recife,-8.04666,-34.8771,1,26,2531,81,America/Sao_Paulo,Assets\Logos\logoRecife.png,Prefeitura do Recife<br>Secretaria de Finanças<br>faleconosco@recife.pe.gov.br
+```
+
 ---
 
 ## Acessando HTML e warnings
