@@ -35,23 +35,18 @@ jobs:
 
       - name: Pack
         shell: pwsh
-        run: |
-          dotnet pack src/Danfe/Danfe.csproj -c Release -o artifacts /p:PackageVersion=$env:PACKAGE_VERSION
-
+        run: dotnet pack src/Danfe/Danfe.csproj -c Release -o "$env:GITHUB_WORKSPACE\artifacts" /p:PackageVersion=$env:PACKAGE_VERSION
 
       - name: Nuget login (OIDC - temp API key)
         uses: NuGet/login@v1
         with:
           user: direction
           
-
       - name: Push to NuGet (OIDC)
-        run: dotnet nuget push "artifacts/*.nupkg" --source https://api.nuget.org/v3/index.json --skip-duplicate
+        run: dotnet nuget push "$env:GITHUB_WORKSPACE\artifacts\*.nupkg" --source https://api.nuget.org/v3/index.json --skip-duplicate
 
-        
       - name: Push symbols (OIDC)
-        run: dotnet nuget push "artifacts/*.snupkg" --source https://api.nuget.org/v3/index.json --skip-duplicate
-
+        run: dotnet nuget push "$env:GITHUB_WORKSPACE\artifacts\*.snupkg" --source https://api.nuget.org/v3/index.json --skip-duplicate
 
       - name: GitHub Release
         uses: softprops/action-gh-release@v2
