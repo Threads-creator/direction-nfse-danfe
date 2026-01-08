@@ -1,3 +1,8 @@
+## [0.1.5] - 2026-01-08
+
+### Bugfix
+- Exibição correta para casos de NFSe Canceladas
+
 ## [0.1.4] - 2026-01-07
 
 ### Added
