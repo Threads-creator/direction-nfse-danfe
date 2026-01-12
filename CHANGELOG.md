@@ -1,3 +1,11 @@
+## [0.1.7] - 2026-01-12
+
+### Added
+- Atualizando o schema da NFSe para a implementação disponível no ambiente nacional no dia 16/12/25. Obrigado a @Threads-creator
+- Preenchendo CPF onde poderia ser preenchido (tomador, prestador e afins). Obrigado a @Threads-creator
+- Preenchendo totalizadores de impostos federais no DANFSe e demais campos não preenchidos originalmente. Obrigado a @Threads-creator
+- Ajustado negrito no layout. Obrigado a @ludero
+
 ## [0.1.5] - 2026-01-08
 
 ### Bugfix
