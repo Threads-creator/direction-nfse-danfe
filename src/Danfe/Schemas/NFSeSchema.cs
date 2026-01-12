@@ -133,6 +133,7 @@ namespace Direction.NFSe.Danfe
         public string? CPF { get; set; }
         public string? NIF { get; set; }
         public int cNaoNIF { get; set; }
+        public bool ShouldSerializecNaoNIF() => !string.IsNullOrEmpty(NIF);
         public string? CAEPF { get; set; }
         public string? IM { get; set; }
         public string? xNome { get; set; }
@@ -184,6 +185,7 @@ namespace Direction.NFSe.Danfe
         public string? CPF { get; set; }
         public string? NIF { get; set; }
         public int cNaoNIF { get; set; }
+        public bool ShouldSerializecNaoNIF() => !string.IsNullOrEmpty(NIF);
         public string? CAEPF { get; set; }
         public string? IM { get; set; }
         public string? xNome { get; set; }
@@ -198,6 +200,7 @@ namespace Direction.NFSe.Danfe
         public string? CPF { get; set; }
         public string? NIF { get; set; }
         public int cNaoNIF { get; set; }
+        public bool ShouldSerializecNaoNIF() => !string.IsNullOrEmpty(NIF);
         public string? CAEPF { get; set; }
         public string? IM { get; set; }
         public string? xNome { get; set; }
@@ -482,6 +485,7 @@ namespace Direction.NFSe.Danfe
         public string? CPF { get; set; }
         public string? NIF { get; set; }
         public int cNaoNIF { get; set; }
+        public bool ShouldSerializecNaoNIF() => !string.IsNullOrEmpty(NIF);
         public string? xNome { get; set; }
         public end? end { get; set; }
         public string? fone { get; set; }
@@ -565,6 +569,7 @@ namespace Direction.NFSe.Danfe
         public string? CPF { get; set; }
         public string? NIF { get; set; }
         public int cNaoNIF { get; set; }
+        public bool ShouldSerializecNaoNIF() => !string.IsNullOrEmpty(NIF);
         public string? xNome { get; set; }
     }
 
