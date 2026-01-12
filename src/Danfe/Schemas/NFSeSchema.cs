@@ -72,6 +72,14 @@ namespace Direction.NFSe.Danfe
         public decimal? vTotalRet { get; set; }
         public decimal vLiq { get; set; }
         public string? xOutInf { get; set; }
+
+        // ShouldSerialize para DECIMAL?
+        public bool ShouldSerializevCalcDR() => vCalcDR.HasValue;
+        public bool ShouldSerializevCalcBM() => vCalcBM.HasValue;
+        public bool ShouldSerializevBC() => vBC.HasValue;
+        public bool ShouldSerializepAliqAplic() => pAliqAplic.HasValue;
+        public bool ShouldSerializevISSQN() => vISSQN.HasValue;
+        public bool ShouldSerializevTotalRet() => vTotalRet.HasValue;
     }
 
     [XmlRoot("DPS", Namespace = "http://www.sped.fazenda.gov.br/nfse")]
@@ -107,6 +115,9 @@ namespace Direction.NFSe.Danfe
         public Servico? serv { get; set; }
         public Valores? valores { get; set; }
         public IBSCBS? IBSCBS { get; set; }
+
+        // ShouldSerialize para INT?
+        public bool ShouldSerializecMotivoEmisTI() => cMotivoEmisTI.HasValue;
     }
 
     public class NFSeSubstituida
@@ -162,6 +173,9 @@ namespace Direction.NFSe.Danfe
         public int opSimpNac { get; set; }
         public int? regApTribSN { get; set; }
         public int regEspTrib { get; set; }
+
+        // ShouldSerialize para INT?
+        public bool ShouldSerializeregApTribSN() => regApTribSN.HasValue;
     }
 
     public class Tomador
@@ -258,29 +272,40 @@ namespace Direction.NFSe.Danfe
     {
         public decimal vReceb { get; set; }
         public decimal? vServ { get; set; }
+
+        // ShouldSerialize para DECIMAL?
+        public bool ShouldSerializevServ() => vServ.HasValue;
     }
 
     public class VDescCondIncond
     {
         public decimal? vDescIncond { get; set; }
         public decimal? vDescCond { get; set; }
+
+        // ShouldSerialize para DECIMAL?
+        public bool ShouldSerializevDescIncond() => vDescIncond.HasValue;
+        public bool ShouldSerializevDescCond() => vDescCond.HasValue;
     }
+
     public class NFSeMun
     {
         public string? cMunNFSeMun { get; set; }
         public string? nNFSeMun { get; set; }
         public string? cVerifNFSeMun { get; set; }
     }
+
     public class NFNFS
     {
         public string? nNFS { get; set; }
         public string? modNFS { get; set; }
         public string? serieNFS { get; set; }
     }
+
     public class Fornecedor : Tomador
     {
-        //Adicionar campos aqui, caso as informações de tomador mude em relação ao fornecedor
+        // Adicionar campos aqui, caso as informações de tomador mude em relação ao fornecedor
     }
+
     public class DocDedRed
     {
         public string? chNFSe { get; set; }
@@ -324,8 +349,6 @@ namespace Direction.NFSe.Danfe
         public Trib? trib { get; set; }
     }
 
-
-
     public class Trib
     {
         public TribMun? tribMun { get; set; }
@@ -346,6 +369,11 @@ namespace Direction.NFSe.Danfe
         public decimal? pRedBCBM { get; set; }
         public int tpRetISSQN { get; set; }
         public decimal? pAliq { get; set; }
+
+        // ShouldSerialize para DECIMAL?
+        public bool ShouldSerializevRedBCBM() => vRedBCBM.HasValue;
+        public bool ShouldSerializepRedBCBM() => pRedBCBM.HasValue;
+        public bool ShouldSerializepAliq() => pAliq.HasValue;
     }
 
     public class TribMun
@@ -353,15 +381,20 @@ namespace Direction.NFSe.Danfe
         public int tribISSQN { get; set; }
         public int tpRetISSQN { get; set; }
         public decimal pAliq { get; set; }
-        // Usado automaticamente pelo XmlSerializer para não serializar quando 0
+
+        // Você já tinha essa regra; mantida.
         public bool ShouldSerializepAliq()
         {
             return pAliq != 0;
         }
+
         public string? cPaisResult { get; set; }
         public int? tpImunidade { get; set; }
         public ExigSusp? exigSusp { get; set; }
         public BM? BM { get; set; }
+
+        // ShouldSerialize para INT?
+        public bool ShouldSerializetpImunidade() => tpImunidade.HasValue;
     }
 
     public class PisCofins
@@ -373,7 +406,18 @@ namespace Direction.NFSe.Danfe
         public decimal? vPis { get; set; }
         public decimal? vCofins { get; set; }
         public int? tpRetPisCofins { get; set; }
+
+        // ShouldSerialize para DECIMAL?
+        public bool ShouldSerializevBCPisCofins() => vBCPisCofins.HasValue;
+        public bool ShouldSerializepAliqPis() => pAliqPis.HasValue;
+        public bool ShouldSerializepAliqCofins() => pAliqCofins.HasValue;
+        public bool ShouldSerializevPis() => vPis.HasValue;
+        public bool ShouldSerializevCofins() => vCofins.HasValue;
+
+        // ShouldSerialize para INT?
+        public bool ShouldSerializetpRetPisCofins() => tpRetPisCofins.HasValue;
     }
+
     public class TribFed
     {
         public PisCofins? piscofins { get; set; }
@@ -381,6 +425,10 @@ namespace Direction.NFSe.Danfe
         public decimal? vRetIRRF { get; set; }
         public decimal? vRetCSLL { get; set; }
 
+        // ShouldSerialize para DECIMAL?
+        public bool ShouldSerializevRetCP() => vRetCP.HasValue;
+        public bool ShouldSerializevRetIRRF() => vRetIRRF.HasValue;
+        public bool ShouldSerializevRetCSLL() => vRetCSLL.HasValue;
     }
 
     public class PTotTrib
@@ -389,6 +437,7 @@ namespace Direction.NFSe.Danfe
         public decimal pTotTribEst { get; set; }
         public decimal pTotTribMun { get; set; }
     }
+
     public class VTotTrib
     {
         public decimal vTotTribFed { get; set; }
@@ -402,7 +451,11 @@ namespace Direction.NFSe.Danfe
         public PTotTrib? pTotTrib { get; set; }
         public int? indTotTrib { get; set; }
         public decimal pTotTribSN { get; set; }
+
+        // ShouldSerialize para INT?
+        public bool ShouldSerializeindTotTrib() => indTotTrib.HasValue;
     }
+
     public class IBSCBS
     {
         public int finNFSe { get; set; }
@@ -433,13 +486,12 @@ namespace Direction.NFSe.Danfe
         public end? end { get; set; }
         public string? fone { get; set; }
         public string? email { get; set; }
-
     }
+
     public class imovel
     {
         public string? inscImobFisc { get; set; }
         public string? cCIB { get; set; }
-
         public end? end { get; set; }
     }
 
@@ -485,7 +537,6 @@ namespace Direction.NFSe.Danfe
         public int tpReeRepRes { get; set; }
         public string? xTpReeRepRes { get; set; }
         public decimal vlrReeRepRes { get; set; }
-
     }
 
     public class dFeNacional
